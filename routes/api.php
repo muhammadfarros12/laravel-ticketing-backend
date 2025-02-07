@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\OrderController;
 use App\Http\Controllers\Api\EventController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -17,8 +18,10 @@ Route::post('/login/google', [AuthController::class, 'loginWithGoogle']);
 
 Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
 
-Route::get('/events/{event_category_id}', [EventController::class, 'index']);
+Route::get('/events', [EventController::class, 'index']);
 
 Route::get('/event-categories', [EventController::class, 'categories']);
 
 Route::get('/event/{event_id}', [EventController::class, 'detail']);
+
+ROute::post('/order', [OrderController::class, 'create'])->middleware('auth:sanctum');

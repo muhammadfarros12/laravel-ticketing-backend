@@ -10,13 +10,15 @@ use Illuminate\Http\Request;
 class EventController extends Controller
 {
     // index
-    public function index($request)
+    public function index(Request $request)
     {
         // event by category
-        $events = Event::where('event_category_id', $request->event_category_id)->get();
+        // $events = Event::where('event_category_id', $request->event_category_id)->get();
 
         if ($request->category_id == 'all') {
             $events = Event::all();
+        } else {
+            $events = Event::where('event_category_id', $request->category_id)->get();
         }
 
         // $events = Event::all();
@@ -40,7 +42,7 @@ class EventController extends Controller
     }
 
     // detail event and sku by event_id
-    public function detail($request)
+    public function detail(Request $request)
     {
         $event = Event::find($request->event_id);
         $event->load('eventCategory', 'vendor');
